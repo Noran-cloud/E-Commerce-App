@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rwad2/DI/di.dart';
 import 'package:rwad2/DataBase/DatabaseHelper.dart';
 import 'package:rwad2/Screens/add_note.dart';
 import 'package:rwad2/models/notes.dart';
@@ -9,7 +10,7 @@ class Notes_Screen extends StatefulWidget {
   @override
   State<Notes_Screen> createState() => _NotesState();
 }
- final db = Databasehelper();
+   final db = locator<Databasehelper>();
    List<Notes> notes = [];
 class _NotesState extends State<Notes_Screen> {
   

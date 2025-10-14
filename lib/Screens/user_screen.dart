@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rwad2/DI/di.dart';
 import 'package:rwad2/Services/user_service.dart';
 import 'package:rwad2/models/users.dart';
 
@@ -10,17 +11,16 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-    var userService = UserService();
-    List<Users> users = [];
+  final userService = locator<UserService>();
 
-    void getUsersFromServer() async{
-      users = await userService.getHttp();
-      setState(() {
-        
-      });
-    }
+  List<Users> users = [];
 
-    @override
+  void getUsersFromServer() async {
+    users = await userService.getHttp();
+    setState(() {});
+  }
+
+  @override
   void initState() {
     super.initState();
     getUsersFromServer();
@@ -29,21 +29,21 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Users Data'),),
+      appBar: AppBar(title: Text('Users Data')),
       body: Column(
         children: [
           Expanded(
             child: ListView.builder(
               itemCount: users.length,
-              itemBuilder:(context, index) {
+              itemBuilder: (context, index) {
                 var user = users[index];
                 return ListTile(
                   leading: Text('${user.id}'),
-                  title: Text('${user.name}'),
-                  subtitle: Text('${user.email}'),
+                  title: Text(user.name),
+                  subtitle: Text(user.email),
                 );
               },
-            )
+            ),
           ),
         ],
       ),
