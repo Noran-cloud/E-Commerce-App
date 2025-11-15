@@ -40,6 +40,26 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+
+    flavorDimensions += "environment"
+    productFlavors{
+        create("staging"){
+            dimension = "environment"
+            resValue("String","my_app","staging")
+            applicationIdSuffix = ".staging"
+            buildConfigField("String","BaseUrl","\"https://staging.api.example.com/\"")
+        }
+        create("production"){
+            dimension = "environment"
+            resValue("String","my_app","production")
+            applicationIdSuffix = ".production"
+        }
+        create("develop"){
+            dimension = "environment"
+            resValue("String","my_app","develop")
+            applicationIdSuffix = ".develop"
+        }
+    }
 }
 
 flutter {
